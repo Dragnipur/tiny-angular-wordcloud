@@ -1,5 +1,5 @@
 angular.module('tangcloud', [])
-    .directive('wordCloud', ['$interpolate', '$compile', '$timeout', function ($interpolate, $compile, $timeout) {
+    .directive('tangCloud', ['$interpolate', '$compile', '$timeout', function ($interpolate, $compile, $timeout) {
 
         var directive = {
                 restrict: 'E',

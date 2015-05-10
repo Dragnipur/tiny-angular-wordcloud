@@ -5,10 +5,14 @@
   "description": "A wordcloud generator for angular without external dependencies.",
   "repository": "https://github.com/Dragnipur/tiny-angular-wordcloud",
   "license": "GNU v2.0",
+  "dependencies": {
+    "angular": "1.2.x"
+  },
   "devDependencies": {
-    "http-server": "^0.6.1",
     "bower": "^1.3.1",
-    "karma-junit-reporter": "^0.2.2"
+    "grunt": "^0.4.5",
+    "grunt-contrib-uglify": "~0.9.1",
+    "http-server": "^0.6.1"
   },
   "scripts": {
     "postinstall": "bower install",

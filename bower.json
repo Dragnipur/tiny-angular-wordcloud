@@ -1,11 +1,21 @@
 {
   "name": "tiny-angular-wordcloud",
   "description": "A wordcloud generator for angular without external dependencies.",
+  "main": "dist/cloudDirective.js",
+  "ignore": [
+    ".jshintrc",
+    ".gitignore",
+    ".travis.yml",
+    "LICENSE"
+  ],
   "version": "0.0.1",
   "homepage": "-",
   "license": "GNU v2.0",
   "private": false,
   "dependencies": {
     "angular": "1.2.x"
+  },
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.9.1"
   }
 }
