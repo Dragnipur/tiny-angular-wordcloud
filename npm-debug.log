@@ -1,0 +1,30 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'start' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink C:\Program Files\nodejs\\node.exe
+5 verbose run-script [ 'prestart', 'start', 'poststart' ]
+6 info prestart tiny-angular-wordcloud@0.0.1
+7 verbose unsafe-perm in lifecycle true
+8 info start tiny-angular-wordcloud@0.0.1
+9 verbose unsafe-perm in lifecycle true
+10 info tiny-angular-wordcloud@0.0.1 Failed to exec start script
+11 error tiny-angular-wordcloud@0.0.1 start: `http-server -a localhost -p 8000 -c-1`
+11 error Exit status 1
+12 error Failed at the tiny-angular-wordcloud@0.0.1 start script.
+12 error This is most likely a problem with the tiny-angular-wordcloud package,
+12 error not with npm itself.
+12 error Tell the author that this fails on your system:
+12 error     http-server -a localhost -p 8000 -c-1
+12 error You can get their info via:
+12 error     npm owner ls tiny-angular-wordcloud
+12 error There is likely additional logging output above.
+13 error System Windows_NT 6.2.9200
+14 error command "C:\\Program Files\\nodejs\\\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
+15 error cwd D:\Documents\idea_projects\tiny-angular-wordcloud
+16 error node -v v0.10.33
+17 error npm -v 1.4.28
+18 error code ELIFECYCLE
+19 verbose exit [ 1, true ]

@@ -9,7 +9,7 @@ angular.module('tangcloud', [])
                     words: '='
                 },
 
-                template: "<div id='test' class='tangcloud'>" +
+                template: "<div class='tangcloud'>" +
                 "<span ng-repeat='entry in words'>{{entry.word}}</span>" +
                 "</div>",
 
@@ -53,16 +53,17 @@ angular.module('tangcloud', [])
                         function setWordSpanPosition(span) {
                             var height = span[0].offsetHeight;
                             var width = span[0].offsetWidth;
-                            var spot = {startX: centerX, startY: centerY, endX: centerX + width, endY: centerY + height};
+                            var spot = {startX: centerX - width / 2, startY: centerY - height / 2, endX: centerX + width, endY: centerY + height};
                             var angleMultiplier = 0;
 
-                            while (spotTaken(spot)) {
+                            while (spotNotUsable(spot)) {
                                 var angle = angleMultiplier * 0.1;
                                 spot.startX = centerX + (2 * angle) * Math.cos(angle) - (width / 2);
-                                spot.startY = centerY + (2 * angle) * Math.sin(angle) - (height / 2);
+                                spot.startY = centerY + angle * Math.sin(angle) - (height / 2);
                                 spot.endX = spot.startX + width;
                                 spot.endY = spot.startY + height;
-                                angleMultiplier+=10;
+                                angleMultiplier += 20;
+                                addSpanPositionStyling(span, spot.startX, spot.startY);
                             }
 
                             takenSpots.push(spot);
@@ -70,11 +71,25 @@ angular.module('tangcloud', [])
                         }
 
 
-                        function spotTaken(spot) {
+                        function spotNotUsable(spot) {
+                            var borders = {
+                                left: centerX - scope.width / 2,
+                                right: centerX + scope.width / 2,
+                                bottom: centerY - scope.height / 2,
+                                top: centerY + scope.height / 2
+                            };
+
                             for (var i = 0; i < takenSpots.length; i++) {
-                                if (collisionDetected(spot, takenSpots[i])) return true;
+                                if (spotInvalid(spot, borders) || collisionDetected(spot, takenSpots[i])) return true;
                             }
                             return false;
+                        }
+
+                        function spotInvalid(spot, borders) {
+                            return spot.startX < borders.left ||
+                                spot.endX > borders.right ||
+                                spot.startY < borders.bottom ||
+                                spot.endY > borders.top
                         }
 
                         function collisionDetected(spot, takenSpot) {
