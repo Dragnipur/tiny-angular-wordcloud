@@ -6,16 +6,23 @@ angular.module('tangcloud', [])
                 scope: {
                     width: '=',
                     height: '=',
-                    words: '='
+                    words: '=',
+                    onClick: '&'
                 },
 
-                template: "<div class='tangcloud'>" +
-                "<span ng-repeat='entry in words'>{{entry.word}}</span>" +
-                "</div>",
+                template: function(tElement, tAttrs) {
+                    var isClickable = angular.isDefined(tAttrs.onClick);
+
+                    var clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '';
+
+                    return "<div class='tangcloud'>" +
+                    "<span ng-repeat='entry in words'" + clickAttr + ">{{entry.word}}</span>" +
+                    "</div>";
+                },
 
                 compile: function (elem) {
                     elem.children().children().addClass('tangcloud-item-' + $interpolate.startSymbol() + 'entry.size' + $interpolate.endSymbol());
-
+                    
                     return function (scope, elem) {
                         var centerX = scope.width / 2;
                         var centerY = scope.height / 2;
