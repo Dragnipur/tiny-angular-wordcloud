@@ -1,9 +1,8 @@
 # tiny-angular-wordcloud
-Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any external dependencies 
-consisting of a single directive.
+Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any external dependencies!
 
 ### Version
-0.0.1
+0.0.2
 
 ### Installation
 You can easily install tiny-angular-wordcloud with bower:
@@ -24,13 +23,13 @@ Now you can use the tangcloud directive in your html:
 
 ### Supported variables
 ##### words - *required*
-1. The name of a scope variable containing words in the format:
+1. The name of a scope variable containing words in format showed below (id is optional).
 ```sh
         $scope.words = [
-            {word: "woord1", size: 1},
-            {word: "woord2", size: 2},
-            {word: "woord3", size: 3},
-            {word: "woord4", size: 4},
+            {id: 1, word: "woord1", size: 1},
+            {id: 2, word: "woord2", size: 2},
+            {id: 3, word: "woord3", size: 3},
+            {id: 4, word: "woord4", size: 4},
         ];
 ```
 
@@ -49,6 +48,13 @@ the width of the wordcloud as a number of pixels. (in the future percentages wil
 the height of the wordcloud as a number of pixels. (in the future percentages will be supported)
 ```sh
 <tang-cloud height="500"></tang-cloud>
+```
+
+##### on-click - *optional*
+The method thas has to be called when a word is clicked on. Supported parameters are word and id.
+```sh
+<tang-cloud on-click="method(word)"></tang-cloud>
+<tang-cloud on-click="method(id)"></tang-cloud>
 ```
 
 ### Styling
