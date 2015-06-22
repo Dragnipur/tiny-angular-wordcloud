@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
 
+    grunt.registerTask('default', ['uglify']);
+
     grunt.initConfig({
             uglify: {
                 target: {

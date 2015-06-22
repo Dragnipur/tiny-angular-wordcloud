@@ -1,45 +1,63 @@
+@font-face {
+    font-family: coolvetica;
+    src: url(coolvetica.ttf);
+}
+
 .tangcloud {
-    font-family: Impact, Haettenschweiler, 'Franklin Gothic Bold', Charcoal, 'Helvetica Inserat', 'Bitstream Vera Sans Bold', 'Arial Black', 'sans serif';
+    font-family: coolvetica;
+    font-weight: bold;
+}
+
+.tangcloud span {
+    line-height: 100%;
 }
 
 .tangcloud-item-1 {
-    font-size: 10px;
-    color: green;
+    font-size: 1.3em;
+    color: #080808;
 }
 
 .tangcloud-item-2 {
-    font-size: 15px;
-    colro: #69d100
+    font-size: 1.6em;
+    color: #101010;
 }
 
 .tangcloud-item-3 {
-    font-size: 20px;
+    font-size: 1.9em;
+    color: #181818;
 }
 
 .tangcloud-item-4 {
-    font-size: 25px;
+    font-size: 2.2em;
+    color: #303030;
 }
 
 .tangcloud-item-5 {
-    font-size: 30px;
+    font-size: 2.5em;
+    color: #282828;
 }
 
 .tangcloud-item-6 {
-    font-size: 35px;
+    font-size: 2.8em;
+    color: #202020;
 }
 
 .tangcloud-item-7 {
-    font-size: 40px;
+    font-size: 3.1em;
+    color: #383838;
 }
 
 .tangcloud-item-8 {
-    font-size: 45px;
+    font-size: 3.4em;
+    color: #404040;
 }
 
 .tangcloud-item-9 {
-    font-size: 50px;
+    font-size: 3.7em;
+    color: #484848;
 }
 
 .tangcloud-item-10 {
-    font-size: 55px;
+    font-size: 4em;
+    color: #000000;
 }
