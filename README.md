@@ -1,5 +1,5 @@
 # tiny-angular-wordcloud
-Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any external dependencies!
+Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any external dependencies. Only 2kb in size!
 
 ### Version
 0.0.2
