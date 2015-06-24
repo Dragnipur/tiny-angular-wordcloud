@@ -23,7 +23,8 @@ angular.module('tangcloud', [])
 
             compile: function (elem) {
                 elem.children().children()
-                    .addClass('tangcloud-item-' + $interpolate.startSymbol() + 'entry.size' + $interpolate.endSymbol());
+                    .addClass('tangcloud-item-' + $interpolate.startSymbol() + 'entry.size' + $interpolate.endSymbol())
+                    .addClass('tangcloud-item-hidden');
 
                 return function (scope, elem) {
                     var centerX = scope.width / 2;
@@ -80,6 +81,7 @@ angular.module('tangcloud', [])
 
 
                     function spotNotUsable(spot) {
+
                         var borders = {
                             left: centerX - scope.width / 2,
                             right: centerX + scope.width / 2,
@@ -111,8 +113,11 @@ angular.module('tangcloud', [])
                     function addSpanPositionStyling(span, startX, startY) {
                         var style = "position: absolute; left:" + startX + "; top: " + startY;
                         span.attr("style", style);
+                        span.removeClass("tangcloud-item-hidden");
                     }
                 };
+
+
             }
         };
 

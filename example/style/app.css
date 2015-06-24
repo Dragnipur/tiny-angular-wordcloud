@@ -61,3 +61,7 @@
     font-size: 4em;
     color: #000000;
 }
+
+.tangcloud-item-hidden {
+    visibility: hidden;
+}
