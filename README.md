@@ -62,14 +62,27 @@ The size and styling of the different words is done using CSS based on the size 
 
 ```sh
 .tangcloud-item-1 {
-    font-size: 15px;
+    font-size: 15em;
     color: green;
 }
 ```
 
 the 'size' number specified in the word objects determines the CSS class. So a word with size 6 will have the CSS class '.tangcloud-item-6'
 
-a default CSS files with classes for size 1 - 10 can be found in the 'example' folder
+In order to work properly each item has to have a line-height of 100% (the height of each word is calculated based on the line height). There should also be a class called 'tangcloud-item-hidden' which sets visibility to hidden. This makes sure the cloud doesn't show up untill all items are placed correctly.
+
+```sh
+.tangcloud-item span {
+        line-height: 100%;
+}
+
+.tangcloud-item-hidden {
+        visibility: hidden;
+}
+```
+
+a default CSS file with all required classes can be found in the 'example' folder
+
 License
 ----
 GNU v2.0
