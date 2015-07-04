@@ -29,6 +29,7 @@ angular.module('tangcloud', [])
                 return function (scope, elem) {
                     var centerX = scope.width / 2;
                     var centerY = scope.height / 2;
+                    var outOfBoundsCount = 0;
                     var takenSpots = [];
 
                     scope.words = shuffleWords(scope.words);
@@ -58,25 +59,40 @@ angular.module('tangcloud', [])
                     function setWordSpanPosition(span) {
                         var height = parseInt(window.getComputedStyle(span[0]).lineHeight, 10);
                         var width = span[0].offsetWidth;
-                        var spot = {
+                        var spot = setupDefaultSpot(width, height);
+                        var angleMultiplier = 0;
+
+                        while (spotNotUsable(spot) && outOfBoundsCount < 50) {
+                            spot = moveSpotOnSpiral(spot, angleMultiplier);
+                            angleMultiplier += 1;
+                        }
+
+                        if (outOfBoundsCount < 50) {
+                            takenSpots.push(spot);
+                            addSpanPositionStyling(span, spot.startX, spot.startY);
+                        }
+
+                        outOfBoundsCount = 0;
+                    }
+
+                    function setupDefaultSpot(width, height) {
+                        return {
+                            width: width,
+                            height: height,
                             startX: centerX - width / 2,
                             startY: centerY - height / 2,
                             endX: centerX + width / 2,
                             endY: centerY + height / 2
                         };
-                        var angleMultiplier = 0;
+                    }
 
-                        while (spotNotUsable(spot)) {
-                            var angle = angleMultiplier * 0.1;
-                            spot.startX = centerX + (1.5 * angle) * Math.cos(angle) - (width / 2);
-                            spot.startY = centerY + angle * Math.sin(angle) - (height / 2);
-                            spot.endX = spot.startX + width;
-                            spot.endY = spot.startY + height;
-                            angleMultiplier += 1;
-                        }
-
-                        takenSpots.push(spot);
-                        addSpanPositionStyling(span, spot.startX, spot.startY);
+                    function moveSpotOnSpiral(spot, angleMultiplier) {
+                        var angle = angleMultiplier * 0.1;
+                        spot.startX = centerX + (1.5 * angle) * Math.cos(angle) - (spot.width / 2);
+                        spot.startY = centerY + angle * Math.sin(angle) - (spot.height / 2);
+                        spot.endX = spot.startX + spot.width;
+                        spot.endY = spot.startY + spot.height;
+                        return spot;
                     }
 
 
@@ -90,16 +106,21 @@ angular.module('tangcloud', [])
                         };
 
                         for (var i = 0; i < takenSpots.length; i++) {
-                            if (spotInvalid(spot, borders) || collisionDetected(spot, takenSpots[i])) return true;
+                            if (spotOutOfBounds(spot, borders) || collisionDetected(spot, takenSpots[i])) return true;
                         }
                         return false;
                     }
 
-                    function spotInvalid(spot, borders) {
-                        return spot.startX < borders.left ||
+                    function spotOutOfBounds(spot, borders) {
+                        if (spot.startX < borders.left ||
                             spot.endX > borders.right ||
                             spot.startY < borders.bottom ||
-                            spot.endY > borders.top
+                            spot.endY > borders.top) {
+                            outOfBoundsCount++;
+                            return true;
+                        } else {
+                            return false;
+                        }
                     }
 
                     function collisionDetected(spot, takenSpot) {
