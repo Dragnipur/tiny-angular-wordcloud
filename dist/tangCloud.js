@@ -32,8 +32,10 @@ angular.module('tangcloud', [])
                     var outOfBoundsCount = 0;
                     var takenSpots = [];
 
-                    scope.words = shuffleWords(scope.words);
-                    determineWordPositions();
+                    if (scope.words) {
+                        scope.words = shuffleWords(scope.words);
+                        determineWordPositions();
+                    }
 
                     function shuffleWords(array) {
                         for (var i = array.length - 1; i > 0; i--) {
