@@ -132,7 +132,7 @@ angular.module('tangcloud', [])
                     }
 
                     function addSpanPositionStyling(span, startX, startY) {
-                        var style = "position: absolute; left:" + startX + "; top: " + startY;
+                        var style = "position: absolute; left:" + startX + "px; top: " + startY + "px;";
                         span.attr("style", style);
                         span.removeClass("tangcloud-item-hidden");
                     }
