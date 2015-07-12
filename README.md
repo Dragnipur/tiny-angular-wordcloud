@@ -81,4 +81,4 @@ a default CSS file with all required classes can be found in the 'example' folde
 
 License
 ----
-GNU v2.0
+MIT
