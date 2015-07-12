@@ -4,8 +4,6 @@ angular.module('tangcloud', [])
         var directive = {
             restrict: 'E',
             scope: {
-                width: '=',
-                height: '=',
                 words: '=',
                 onClick: '&',
                 spin: '='
@@ -27,6 +25,10 @@ angular.module('tangcloud', [])
                     .addClass('tangcloud-item-hidden');
 
                 return function (scope, elem) {
+                    var div = elem.children().eq(0)[0];
+                    scope.width = div.offsetWidth;
+                    scope.height = div.offsetHeight;
+
                     var centerX = scope.width / 2;
                     var centerY = scope.height / 2;
                     var outOfBoundsCount = 0;

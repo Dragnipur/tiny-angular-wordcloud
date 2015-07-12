@@ -39,6 +39,6 @@ angular.module('test', ['tangcloud'])
         ];
 
         $scope.test = function(word) {
-            console.log("clicked on " + word);
+            alert("clicked on " + word);
         }
     }]);
