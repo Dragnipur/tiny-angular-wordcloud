@@ -2,7 +2,7 @@
 Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any external dependencies. Only 2kb in size!
 
 ### Version
-0.1.0
+0.1.1
 
 ### Installation
 You can easily install tiny-angular-wordcloud with bower:
@@ -38,18 +38,6 @@ Now you can use the tangcloud directive in your html:
 <tang-cloud words="[{word: 'woord1', size: 1},{word: 'woord2', size: 2}]"></tang-cloud>
 ```
 
-##### width - *required*
-the width of the wordcloud as a number of pixels.
-```sh
-<tang-cloud width="500"></tang-cloud>
-```
-
-##### height - *required*
-the height of the wordcloud as a number of pixels.
-```sh
-<tang-cloud height="500"></tang-cloud>
-```
-
 ##### on-click - *optional*
 The method thas has to be called when a word is clicked on. Supported parameters are word and id.
 ```sh
@@ -57,6 +45,8 @@ The method thas has to be called when a word is clicked on. Supported parameters
 <tang-cloud on-click="method(id)"></tang-cloud>
 ```
 
+#### cloudsize
+The size of each wordcloud is determined by the space the element has on the screen. The size can be controlled by adding 'weight' and 'height' to the 'tangcloud' css class. (see demo)
 #### word placement
 Words are placed in a circular pattern, if the supplied dimensions are to small to accommodate all the given words, the words that can not be placed will be left out.
 
