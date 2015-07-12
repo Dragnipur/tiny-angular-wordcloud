@@ -4,6 +4,9 @@ Tiny-angular-wordcloud is a simple wordcloud generator for AngularJS without any
 ### Version
 0.1.1
 
+### Demo
+http://plnkr.co/edit/zcC4v6
+
 ### Installation
 You can easily install tiny-angular-wordcloud with bower:
 
