@@ -42,7 +42,7 @@ Now you can use the tangcloud directive in your html:
 ```
 
 ##### on-click - *optional*
-The method thas has to be called when a word is clicked on. Supported parameters are word and id.
+The method that has to be called when a word is clicked on. Supported parameters are word and/or id.
 ```sh
 <tang-cloud on-click="method(word)"></tang-cloud>
 <tang-cloud on-click="method(id)"></tang-cloud>
