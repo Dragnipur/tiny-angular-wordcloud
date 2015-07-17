@@ -26,27 +26,42 @@ angular.module('tangcloud', [])
 
                 return function (scope, elem) {
                     var div = elem.children().eq(0)[0];
-                    scope.width = div.offsetWidth;
-                    scope.height = div.offsetHeight;
+                    setupCustomScopeVariables();
+                    formWordCloud();
 
-                    var centerX = scope.width / 2;
-                    var centerY = scope.height / 2;
-                    var outOfBoundsCount = 0;
-                    var takenSpots = [];
+                    function setupCustomScopeVariables() {
+                        scope.width = div.offsetWidth;
+                        scope.height = div.offsetHeight;
 
-                    if (scope.words) {
-                        scope.words = shuffleWords(scope.words);
-                        determineWordPositions();
+                        scope.centerX = scope.width / 2;
+                        scope.centerY = scope.height / 2;
+
+                        scope.borders = {
+                            left: scope.centerX - scope.width / 2,
+                            right: scope.centerX + scope.width / 2,
+                            bottom: scope.centerY - scope.height / 2,
+                            top: scope.centerY + scope.height / 2
+                        };
+
+                        scope.outOfBoundsCount = 0;
+                        scope.takenSpots = [];
+                        scope.lastCollisionSpot = -1;
                     }
 
-                    function shuffleWords(array) {
-                        for (var i = array.length - 1; i > 0; i--) {
-                            var j = Math.floor(Math.random() * (i + 1));
-                            var temp = array[i];
-                            array[i] = array[j];
-                            array[j] = temp;
+                    function formWordCloud() {
+                        if (scope.words) {
+                            shuffleWords();
+                            determineWordPositions();
                         }
-                        return array;
+                    }
+
+                    function shuffleWords() {
+                        for (var i = scope.words.length - 1; i > 0; i--) {
+                            var j = Math.floor(Math.random() * (i + 1));
+                            var temp = scope.words[i];
+                            scope.words[i] = scope.words[j];
+                            scope.words[j] = temp;
+                        }
                     }
 
                     function determineWordPositions() {
@@ -61,39 +76,40 @@ angular.module('tangcloud', [])
                     }
 
                     function setWordSpanPosition(span) {
-                        var height = parseInt(window.getComputedStyle(span[0]).lineHeight, 10);
-                        var width = span[0].offsetWidth;
-                        var spot = setupDefaultSpot(width, height);
+                        var spot = setupDefaultSpot(span[0]);
                         var angleMultiplier = 0;
 
-                        while (spotNotUsable(spot) && outOfBoundsCount < 50) {
+                        while (spotNotUsable(spot) && scope.outOfBoundsCount < 50) {
                             spot = moveSpotOnSpiral(spot, angleMultiplier);
                             angleMultiplier += 1;
                         }
 
-                        if (outOfBoundsCount < 50) {
-                            takenSpots.push(spot);
-                            addSpanPositionStyling(span, spot.startX, spot.startY);
+                        if (scope.outOfBoundsCount < 50) {
+                            scope.takenSpots.push(spot);
+                            moveSpanToEmptySpot(span, spot.startX, spot.startY);
                         }
 
-                        outOfBoundsCount = 0;
+                        scope.outOfBoundsCount = 0;
                     }
 
-                    function setupDefaultSpot(width, height) {
+                    function setupDefaultSpot(span) {
+                        var width = span.offsetWidth;
+                        var height = parseInt(window.getComputedStyle(span).lineHeight, 10);
+
                         return {
                             width: width,
                             height: height,
-                            startX: centerX - width / 2,
-                            startY: centerY - height / 2,
-                            endX: centerX + width / 2,
-                            endY: centerY + height / 2
+                            startX: scope.centerX - width / 2,
+                            startY: scope.centerY - height / 2,
+                            endX: scope.centerX + width / 2,
+                            endY: scope.centerY + height / 2
                         };
                     }
 
                     function moveSpotOnSpiral(spot, angleMultiplier) {
                         var angle = angleMultiplier * 0.1;
-                        spot.startX = centerX + (1.5 * angle) * Math.cos(angle) - (spot.width / 2);
-                        spot.startY = centerY + angle * Math.sin(angle) - (spot.height / 2);
+                        spot.startX = scope.centerX + (1.5 * angle) * Math.cos(angle) - (spot.width / 2);
+                        spot.startY = scope.centerY + angle * Math.sin(angle) - (spot.height / 2);
                         spot.endX = spot.startX + spot.width;
                         spot.endY = spot.startY + spot.height;
                         return spot;
@@ -102,25 +118,26 @@ angular.module('tangcloud', [])
 
                     function spotNotUsable(spot) {
 
-                        var borders = {
-                            left: centerX - scope.width / 2,
-                            right: centerX + scope.width / 2,
-                            bottom: centerY - scope.height / 2,
-                            top: centerY + scope.height / 2
-                        };
+                        if (spotOutOfBounds(spot)) return true;
+                        if (scope.lastCollisionSpot != -1 && collisionDetected(spot, scope.takenSpots[scope.lastCollisionSpot])) return true;
 
-                        for (var i = 0; i < takenSpots.length; i++) {
-                            if (spotOutOfBounds(spot, borders) || collisionDetected(spot, takenSpots[i])) return true;
+                        for (var i = 0; i < scope.takenSpots.length; i++) {
+                            if (i != scope.lastCollisionSpot && collisionDetected(spot, scope.takenSpots[i])) {
+                                scope.lastCollisionSpot = i;
+                                return true;
+                            }
                         }
+
+                        scope.lastCollisionSpot = -1;
                         return false;
                     }
 
-                    function spotOutOfBounds(spot, borders) {
-                        if (spot.startX < borders.left ||
-                            spot.endX > borders.right ||
-                            spot.startY < borders.bottom ||
-                            spot.endY > borders.top) {
-                            outOfBoundsCount++;
+                    function spotOutOfBounds(spot) {
+                        if (spot.startX < scope.borders.left ||
+                            spot.endX > scope.borders.right ||
+                            spot.startY < scope.borders.bottom ||
+                            spot.endY > scope.borders.top) {
+                            scope.outOfBoundsCount++;
                             return true;
                         } else {
                             return false;
@@ -135,14 +152,12 @@ angular.module('tangcloud', [])
                         return !(spot.startY > takenSpot.endY || spot.endY < takenSpot.startY);
                     }
 
-                    function addSpanPositionStyling(span, startX, startY) {
+                    function moveSpanToEmptySpot(span, startX, startY) {
                         var style = "position: absolute; left:" + startX + "px; top: " + startY + "px;";
                         span.attr("style", style);
                         span.removeClass("tangcloud-item-hidden");
                     }
                 };
-
-
             }
         };
 
