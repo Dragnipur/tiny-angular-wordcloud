@@ -1,7 +1,7 @@
 {
   "name": "tiny-angular-wordcloud",
   "description": "A wordcloud generator for angular without external dependencies.",
-  "main": "dist/cloudDirective.js",
+  "main": "dist/tangCloud.js",
   "ignore": [
     ".jshintrc",
     ".gitignore",
