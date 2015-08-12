@@ -5,16 +5,19 @@ angular.module('tangcloud', [])
             restrict: 'E',
             scope: {
                 words: '=',
-                onClick: '&'
+                onClick: '&',
+                hasLinks: '='
             },
 
             template: function (tElement, tAttrs) {
-                var isClickable = angular.isDefined(tAttrs.onClick);
-
-                var clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '';
-
+                var isClickable = angular.isDefined(tAttrs.onClick),
+                    clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '',
+                    text = '{{entry.word}}';
+                if ( angular.isDefined(tAttrs.hasLinks)) {
+                    text = "<a data-ng-href=\"{{entry.link}}\">" + text + "</a>";
+                }
                 return "<div class='tangcloud'>" +
-                    "<span ng-repeat='entry in words'" + clickAttr + ">{{entry.word}}</span>" +
+                    "<span ng-repeat='entry in words'" + clickAttr + ">"+text+"</span>" +
                     "</div>";
             },
 
