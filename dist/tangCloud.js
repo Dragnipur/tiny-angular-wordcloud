@@ -14,11 +14,11 @@ angular.module('tangcloud', [])
                     clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '',
                     text = '{{entry.word}}';
                 if ( angular.isDefined(tAttrs.hasLinks)) {
-                    text = "<a data-ng-href=\"{{entry.link}}\">" + text + "</a>";
+                    text = '<a data-ng-href="{{entry.link}}">' + text + '</a>';
                 }
-                return "<div class='tangcloud'>" +
-                    "<span ng-repeat='entry in words'" + clickAttr + ">"+text+"</span>" +
-                    "</div>";
+                return '<div class="tangcloud">' +
+                    '<span ng-repeat="entry in words" ' + clickAttr + '>'+text+'</span>' +
+                    '</div>';
             },
 
             compile: function (elem) {
@@ -155,9 +155,9 @@ angular.module('tangcloud', [])
                     }
 
                     function moveSpanToEmptySpot(span, startX, startY) {
-                        var style = "position: absolute; left:" + startX + "px; top: " + startY + "px;";
-                        span.attr("style", style);
-                        span.removeClass("tangcloud-item-hidden");
+                        var style = 'position: absolute; left:' + startX + 'px; top: ' + startY + 'px;';
+                        span.attr('style', style);
+                        span.removeClass('tangcloud-item-hidden');
                     }
                 };
             }
