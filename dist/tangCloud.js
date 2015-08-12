@@ -5,8 +5,7 @@ angular.module('tangcloud', [])
             restrict: 'E',
             scope: {
                 words: '=',
-                onClick: '&',
-                spin: '='
+                onClick: '&'
             },
 
             template: function (tElement, tAttrs) {
