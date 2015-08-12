@@ -14,7 +14,7 @@ angular.module('tangcloud', [])
                     clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '',
                     text = '{{entry.word}}';
                 if ( angular.isDefined(tAttrs.hasLinks)) {
-                    text = '<a data-ng-href="{{entry.link}}">' + text + '</a>';
+                    text = '<a data-ng-href="{{entry.href}}">' + text + '</a>';
                 }
                 return '<div class="tangcloud">' +
                     '<span ng-repeat="entry in words" ' + clickAttr + '>'+text+'</span>' +
