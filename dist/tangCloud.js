@@ -6,17 +6,19 @@ angular.module('tangcloud', [])
             scope: {
                 words: '=',
                 onClick: '&',
-                spin: '='
+                hasLinks: '='
             },
 
             template: function (tElement, tAttrs) {
-                var isClickable = angular.isDefined(tAttrs.onClick);
-
-                var clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '';
-
-                return "<div class='tangcloud'>" +
-                    "<span ng-repeat='entry in words'" + clickAttr + ">{{entry.word}}</span>" +
-                    "</div>";
+                var isClickable = angular.isDefined(tAttrs.onClick),
+                    clickAttr = isClickable ? 'ng-click="onClick({word : entry.word, id : entry.id})"' : '',
+                    text = '{{entry.word}}';
+                if ( angular.isDefined(tAttrs.hasLinks)) {
+                    text = '<a data-ng-href="{{entry.href}}">' + text + '</a>';
+                }
+                return '<div class="tangcloud">' +
+                    '<span ng-repeat="entry in words" ' + clickAttr + '>'+text+'</span>' +
+                    '</div>';
             },
 
             compile: function (elem) {
@@ -153,9 +155,9 @@ angular.module('tangcloud', [])
                     }
 
                     function moveSpanToEmptySpot(span, startX, startY) {
-                        var style = "position: absolute; left:" + startX + "px; top: " + startY + "px;";
-                        span.attr("style", style);
-                        span.removeClass("tangcloud-item-hidden");
+                        var style = 'position: absolute; left:' + startX + 'px; top: ' + startY + 'px;';
+                        span.attr('style', style);
+                        span.removeClass('tangcloud-item-hidden');
                     }
                 };
             }
