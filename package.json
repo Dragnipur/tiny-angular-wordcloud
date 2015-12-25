@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "description": "A wordcloud generator for angular without external dependencies.",
   "repository": "https://github.com/Dragnipur/tiny-angular-wordcloud",
-  "license": "GNU v2.0",
+  "license": "MIT",
   "dependencies": {
     "angular": "1.2.x"
   },

@@ -10,7 +10,7 @@
   ],
   "version": "0.1.1",
   "homepage": "-",
-  "license": "GNU v2.0",
+  "license": "MIT",
   "private": false,
   "dependencies": {
     "angular": "1.2.x"
