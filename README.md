@@ -14,7 +14,7 @@ You can easily install tiny-angular-wordcloud with bower:
 $ bower install tiny-angular-wordcloud --save
 ```
 
-Once that is done you must add the the 'tangcloud' module to your Angular application:
+Once that is done you must add the 'tangcloud' module to your Angular application:
 ```sh
 angular.module('test', ['tangcloud'])
 ```
